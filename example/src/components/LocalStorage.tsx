@@ -5,6 +5,7 @@ export default function LocalStorage() {
   const [text, setText] = useLocalStorage<string>('text')
   return (
     <div>
+      <h2>useLocalStorage</h2>
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}

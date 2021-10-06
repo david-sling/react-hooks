@@ -14,18 +14,15 @@ npm install --save react-hooks
 
 ```tsx
 import React from 'react'
-import { useLocalStorage } from '@david-sling/react-hooks'
+import { useLocalStorage, useFetch } from '@david-sling/react-hooks'
 
-const LocalStorageExample = () => {
+const Example = () => {
   const [text, setText] = useLocalStorage<string>('text', 'initial value')
-  return (
-    <div>
-      <input
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        type='text'
-      />
-    </div>
+  const [data, dataLoading, dataError] = useFetch<any>(
+    url, // url
+    {}, // Initial value
+    { body: { text: 'text', method: 'GET' } }, //params
+    [url] // dependency array (Data will be refetched if any item in this array changes)
   )
 }
 ```
