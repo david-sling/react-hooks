@@ -13,15 +13,20 @@ npm install --save react-hooks
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React from 'react'
+import { useLocalStorage } from '@david-sling/react-hooks'
 
-import MyComponent from 'react-hooks'
-import 'react-hooks/dist/index.css'
-
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
+const LocalStorageExample = () => {
+  const [text, setText] = useLocalStorage<string>('text', 'initial value')
+  return (
+    <div>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        type='text'
+      />
+    </div>
+  )
 }
 ```
 

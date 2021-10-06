@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocalStorage } from 'react-hooks'
+import { useLocalStorage } from '@david-sling/react-hooks'
 
 export default function LocalStorage() {
   const [text, setText] = useLocalStorage<string>('text')
