@@ -18,7 +18,7 @@ import { useLocalStorage, useFetch } from '@david-sling/react-hooks'
 
 const Example = () => {
   const [text, setText] = useLocalStorage<string>('text', 'initial value')
-  const [data, dataLoading, dataError] = useFetch<any>(
+  const [data, dataLoading<boolean>, dataError] = useFetch<any>(
     url, // url
     {}, // Initial value
     { body: { text: 'text', method: 'GET' } }, //params
