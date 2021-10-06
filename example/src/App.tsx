@@ -1,10 +1,8 @@
 import React from 'react'
-
-import { ExampleComponent } from 'react-hooks'
-import 'react-hooks/dist/index.css'
+import LocalStorage from './components/LocalStorage'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <LocalStorage />
 }
 
 export default App
