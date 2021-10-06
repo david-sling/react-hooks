@@ -21,7 +21,7 @@ const Example = () => {
   const [data, dataLoading<boolean>, dataError] = useFetch<any>(
     url, // url
     {}, // Initial value
-    { body: { text: 'text', method: 'GET' } }, //params
+    { body: { text: 'text' }, method: 'GET' }, //params
     [url] // dependency array (Data will be refetched if any item in this array changes)
   )
 }
