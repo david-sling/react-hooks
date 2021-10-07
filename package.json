@@ -4,7 +4,7 @@
   "description": "useful react hooks",
   "author": "david-sling",
   "license": "MIT",
-  "repository": "david-sling/react-hooks",
+  "repository": "@david-sling/react-hooks",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
