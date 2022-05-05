@@ -1,9 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { useCallback, useEffect, useState } from 'react'
 
-export default function useLocalStorage<Type>(
-  key: string,
-  initialValue?: Type
-) {
+export const useLocalStorage = <Type>(key: string, initialValue?: Type) => {
   const [value, setValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key)

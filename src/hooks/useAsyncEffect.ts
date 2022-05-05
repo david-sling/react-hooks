@@ -1,15 +1,14 @@
-import { DependencyList, useCallback, useEffect } from "react";
+/* eslint-disable prettier/prettier */
+import { useCallback, useEffect } from 'react'
 
-const useAsyncEffect = (
+export const useAsyncEffect = (
   effect: () => Promise<void>,
-  deps?: DependencyList,
+  deps?: any[],
   destructor?: () => void
 ) => {
-  const asyncFunction = useCallback(effect, deps);
+  const asyncFunction = useCallback(effect, deps || [])
   useEffect(() => {
-    asyncFunction();
-    return destructor;
-  }, [asyncFunction]);
-};
-
-export default useAsyncEffect;
+    asyncFunction()
+    return destructor
+  }, [asyncFunction])
+}

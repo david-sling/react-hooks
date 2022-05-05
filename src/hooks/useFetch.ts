@@ -1,6 +1,7 @@
+/* eslint-disable prettier/prettier */
 import { useEffect, useState } from 'react'
 
-const useFetch = <TYPE>(
+export const useFetch = <TYPE>(
   url: string,
   initialValue?: TYPE,
   params?: RequestInit,
@@ -36,5 +37,3 @@ const useFetch = <TYPE>(
 
   return [data, loading, error, setData, setLoading, setError]
 }
-
-export default useFetch
