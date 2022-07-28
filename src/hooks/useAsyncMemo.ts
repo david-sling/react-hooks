@@ -2,11 +2,18 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useAsyncEffect } from './useAsyncEffect'
 
+interface Props<T, D> {
+  set: Dispatch<SetStateAction<T | D>>
+  get: () => Promise<void>
+  loading: boolean
+}
+
 export const useAsyncMemo = <T, D = null>(
   fetcher: () => Promise<T | D> | T | D,
   deps: any[] = [],
   { defaultValue, storeLocal }: { storeLocal?: string; defaultValue?: D } = {}
-): [T | D, Dispatch<SetStateAction<T | D>>, () => Promise<void>] => {
+): [T | D, Props<T, D>] => {
+  const [loading, setLoading] = useState(false)
   const [value, setValue] = useState<T | D>(() => {
     if (storeLocal) {
       try {
@@ -24,7 +31,9 @@ export const useAsyncMemo = <T, D = null>(
   })
 
   const getValue = async () => {
+    setLoading(true)
     setValue(await fetcher())
+    setLoading(false)
   }
 
   useAsyncEffect(getValue, deps)
@@ -39,5 +48,5 @@ export const useAsyncMemo = <T, D = null>(
     }
   }, [value, storeLocal])
 
-  return [value, setValue, getValue]
+  return [value, { set: setValue, get: getValue, loading }]
 }
