@@ -1,32 +1,49 @@
 /* eslint-disable prettier/prettier */
-import { useCallback, useEffect, useState } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState
+} from 'react'
 
 export const useLocalStorage = <Type>(key: string, initialValue?: Type) => {
-  const [value, setValue] = useState(() => {
+  const [value, setValue] = useState<Type>(() => {
     try {
-      const item = window.localStorage.getItem(key)
-      return item ? JSON.parse(item) : initialValue
+      if (typeof window !== 'undefined') {
+        const item = window.localStorage.getItem(key)
+        return item ? JSON.parse(item) : initialValue
+      }
     } catch (error) {
-      console.log(error)
       return initialValue
     }
   })
 
   const setStoredValue = useCallback(
-    (val: React.Dispatch<React.SetStateAction<Type>>) => {
+    (val: Type) => {
       try {
-        const valueToStore = val instanceof Function ? val(value) : val
-        window.localStorage.setItem(key, JSON.stringify(valueToStore))
+        if (typeof window !== 'undefined')
+          window.localStorage.setItem(key, JSON.stringify(val))
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     },
     [value, key]
   )
 
+  const syncValue = () => {
+    if (typeof window !== 'undefined') {
+      const item = window.localStorage.getItem(key)
+      setStoredValue(item ? JSON.parse(item) : initialValue)
+    }
+  }
+
   useEffect(() => {
     setStoredValue(value)
   }, [value, setStoredValue])
 
-  return [value, setValue]
+  return [value, { set: setValue, sync: syncValue }] as [
+    Type,
+    { set: Dispatch<SetStateAction<Type>>; sync: () => void }
+  ]
 }
