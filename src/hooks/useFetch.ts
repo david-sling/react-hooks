@@ -35,5 +35,5 @@ export const useFetch = <TYPE>(
     getData()
   }, deps || [])
 
-  return [data, loading, error, setData, setLoading, setError]
+  return [data, { loading, error, setData, setLoading, setError }]
 }
